@@ -1,4 +1,9 @@
+package entities;
+
+import constraints.Age;
+
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
@@ -9,6 +14,7 @@ import java.util.Date;
         @NamedQuery(name = Customer.allNorwegian, query = "SELECT c from Customer c WHERE c.address.country LIKE 'Norway'"),
         @NamedQuery(name = Customer.allFromOslo, query = "SELECT c from Customer c WHERE c.address.city LIKE 'Oslo'")
 })
+@Age(min = 18)
 public class Customer {
     public static final String allNorwegian = "allNorwegian";
     public static final String allFromOslo = "allFromOslo";
@@ -27,11 +33,19 @@ public class Customer {
     @Size(max = 64)
     private String surname;
 
+    @NotNull
     @Past
+    @Temporal(TemporalType.DATE)
     private Date dateOfBirth;
 
+    @NotNull
     @Past
+    @Temporal(TemporalType.DATE)
     private Date dateOfRegistration;
+
+    @NotNull
+    @Embedded
+    @Valid
     private Address address;
 
     public Address getAddress() {
