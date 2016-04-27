@@ -7,7 +7,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class ValidUserFactory {
+public class ValidTestUserFactory {
     public static User create() {
         final User user = new User();
         user.setFirstName("Jonas");

@@ -24,7 +24,7 @@ public class ValidationTest {
     public void setUp() throws Exception {
         validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
-        testUser = ValidUserFactory.create();
+        testUser = ValidTestUserFactory.create();
     }
 
     @After
@@ -34,7 +34,7 @@ public class ValidationTest {
 
     @Test
     public void testNormalCustomerShouldPass() throws Exception {
-        final User user = ValidUserFactory.create();
+        final User user = ValidTestUserFactory.create();
         final Set<ConstraintViolation<User>> violationSet = validator.validate(user);
         Assert.assertEquals(0, violationSet.size());
     }

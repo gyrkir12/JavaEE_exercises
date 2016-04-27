@@ -39,7 +39,7 @@ public class UserIT {
     }
 
     private User createAndPersistDefaultUser() {
-        final User user = ValidUserFactory.create();
+        final User user = ValidTestUserFactory.create();
         return userEJB.create(user);
     }
 
