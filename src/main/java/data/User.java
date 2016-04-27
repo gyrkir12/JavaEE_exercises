@@ -8,22 +8,17 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @NamedQueries(value = {
-        @NamedQuery(name = User.allNorwegian, query = "SELECT c from User c WHERE c.address.country LIKE 'Norway'"),
-        @NamedQuery(name = User.allFromOslo, query = "SELECT c from User c WHERE c.address.city LIKE 'Oslo'"),
         @NamedQuery(name = User.query_getAll, query = "SELECT u from User u"),
-        @NamedQuery(name = User.query_getById, query = "SELECT u from User u WHERE u.id = :" + User.query_idField)
+        @NamedQuery(name = User.query_getById, query = "SELECT u from User u WHERE u.id = :id")
 })
 @Age(min = 18)
 public class User {
-    public static final String allNorwegian = "User.allNorwegian";
-    public static final String allFromOslo = "User.allFromOslo";
     public static final String query_getAll = "User.all";
     public static final String query_getById = "User.byId";
-    public static final String query_idField = "User.id";
+
     @Id
     @GeneratedValue
     private long id;
@@ -62,15 +57,15 @@ public class User {
     @Size(max = 256)
     private String password;
 
-    @NotNull
-    @Size(max = 64)
-    private String location;
+//    @NotNull
+//    @Size(max = 64)
+//    private String location;
 
-    @OneToMany
-    private List<NewsArticle> newsArticles;
+//    @OneToMany
+//    private List<NewsArticle> newsArticles;
 
-    @OneToMany
-    private List<Comment> comments;
+//    @OneToMany
+//    private List<Comment> comments;
 
     public Address getAddress() {
         return address;
@@ -122,5 +117,21 @@ public class User {
 
     public long getId() {
         return id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

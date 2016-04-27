@@ -1,3 +1,5 @@
+package data.user;
+
 import data.Address;
 import data.User;
 import org.junit.After;
@@ -10,18 +12,19 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-public class UserTest {
+public class ValidationTest {
     private ValidatorFactory validatorFactory;
     private Validator validator;
+    private User testUser;
 
     @Before
     public void setUp() throws Exception {
         validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
+        testUser = ValidUserFactory.create();
     }
 
     @After
@@ -29,28 +32,9 @@ public class UserTest {
         validatorFactory.close();
     }
 
-    private User createTestCustomer() {
-        final User user = new User();
-        user.setFirstName("Jonas");
-        user.setSurname("Jensen");
-
-        final Calendar calendarInstance = GregorianCalendar.getInstance();
-        calendarInstance.set(1992, Calendar.DECEMBER, 24);
-        user.setDateOfBirth(calendarInstance.getTime());
-
-        user.setDateOfRegistration(new Date());
-
-        final Address address = new Address();
-        address.setCountry("Norway");
-        address.setCity("Oslo");
-        address.setStreet("John Colletts Allé 110 PB.150");
-        user.setAddress(address);
-        return user;
-    }
-
     @Test
     public void testNormalCustomerShouldPass() throws Exception {
-        final User user = createTestCustomer();
+        final User user = ValidUserFactory.create();
         final Set<ConstraintViolation<User>> violationSet = validator.validate(user);
         Assert.assertEquals(0, violationSet.size());
     }
@@ -60,13 +44,11 @@ public class UserTest {
         final User user = new User();
         final Set<ConstraintViolation<User>> violations = validator.validate(user);
 
-        Assert.assertEquals(6, violations.size());
+        Assert.assertEquals(8, violations.size());
     }
 
     @Test
     public void testCustomerDatesCannotBeSetInFuture() throws Exception {
-        final User testUser = createTestCustomer();
-
         final Calendar calendar = GregorianCalendar.getInstance();
         calendar.set(3000, Calendar.MARCH, 1);
         testUser.setDateOfRegistration(calendar.getTime());
@@ -78,17 +60,13 @@ public class UserTest {
 
     @Test
     public void testDefaultCustomerAgeIsOver18() throws Exception {
-        final User testUser = createTestCustomer();
         final Set<ConstraintViolation<User>> violations = validator.validate(testUser);
         Assert.assertEquals(0, violations.size());
     }
 
     @Test
     public void testCustomerUnder18IsRejected() throws Exception {
-        final User testUser = createTestCustomer();
-
         final Calendar calendar = GregorianCalendar.getInstance();
-
         calendar.add(Calendar.YEAR, -17);
         testUser.setDateOfBirth(calendar.getTime());
 
@@ -99,7 +77,6 @@ public class UserTest {
     @Test
     public void testNoFieldOver64CharsAllowed() throws Exception {
         final String tooLongString = "THIS_FIELD_IS_OVER_SIXTY-FOUR_CHARACTERS_LONG_AND_THAT_IS_SIMPLY_UNACCEPTABLE";
-        final User testUser = createTestCustomer();
 
         final Address customerAddress = new Address();
         customerAddress.setCountry(tooLongString);

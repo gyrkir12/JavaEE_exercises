@@ -30,7 +30,7 @@ public class UserEJB implements EntityEJB<User> {
     public User getById(long id) {
         final TypedQuery<User> query = entityManager
                 .createNamedQuery(User.query_getById, User.class)
-                .setParameter(User.query_idField, id);
+                .setParameter("id", id);
         return query.getSingleResult();
     }
 
