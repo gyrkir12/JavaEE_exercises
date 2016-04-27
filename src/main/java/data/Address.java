@@ -1,4 +1,4 @@
-package entities;
+package data;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;

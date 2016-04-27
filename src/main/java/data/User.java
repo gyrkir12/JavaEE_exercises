@@ -1,4 +1,4 @@
-package entities;
+package data;
 
 import constraints.Age;
 
@@ -8,16 +8,22 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @NamedQueries(value = {
-        @NamedQuery(name = Customer.allNorwegian, query = "SELECT c from Customer c WHERE c.address.country LIKE 'Norway'"),
-        @NamedQuery(name = Customer.allFromOslo, query = "SELECT c from Customer c WHERE c.address.city LIKE 'Oslo'")
+        @NamedQuery(name = User.allNorwegian, query = "SELECT c from User c WHERE c.address.country LIKE 'Norway'"),
+        @NamedQuery(name = User.allFromOslo, query = "SELECT c from User c WHERE c.address.city LIKE 'Oslo'"),
+        @NamedQuery(name = User.query_getAll, query = "SELECT u from User u"),
+        @NamedQuery(name = User.query_getById, query = "SELECT u from User u WHERE u.id = :" + User.query_idField)
 })
 @Age(min = 18)
-public class Customer {
-    public static final String allNorwegian = "allNorwegian";
-    public static final String allFromOslo = "allFromOslo";
+public class User {
+    public static final String allNorwegian = "User.allNorwegian";
+    public static final String allFromOslo = "User.allFromOslo";
+    public static final String query_getAll = "User.all";
+    public static final String query_getById = "User.byId";
+    public static final String query_idField = "User.id";
     @Id
     @GeneratedValue
     private long id;
@@ -47,6 +53,24 @@ public class Customer {
     @Embedded
     @Valid
     private Address address;
+
+    @NotNull
+    @Size(max = 64)
+    private String username;
+
+    @NotNull
+    @Size(max = 256)
+    private String password;
+
+    @NotNull
+    @Size(max = 64)
+    private String location;
+
+    @OneToMany
+    private List<NewsArticle> newsArticles;
+
+    @OneToMany
+    private List<Comment> comments;
 
     public Address getAddress() {
         return address;

@@ -1,4 +1,5 @@
-import entities.Customer;
+import config.MainConfig;
+import data.User;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,13 +12,12 @@ import javax.persistence.TypedQuery;
 
 // TODO: test validation
 public class CustomerIT {
-    public static String PersistenceUnitName = "DefaultUnit";
     private EntityManagerFactory entityManagerFactory;
     private EntityManager entityManager;
 
     @Before
     public void setUp() throws Exception {
-        entityManagerFactory = Persistence.createEntityManagerFactory(CustomerIT.PersistenceUnitName);
+        entityManagerFactory = Persistence.createEntityManagerFactory(MainConfig.PersistenceUnitName);
         entityManager = entityManagerFactory.createEntityManager();
     }
 
@@ -29,19 +29,19 @@ public class CustomerIT {
 
     @Test
     public void testGetAll() throws Exception {
-        final TypedQuery<Customer> query = entityManager.createQuery("SELECT c from Customer c", Customer.class);
+        final TypedQuery<User> query = entityManager.createQuery("SELECT c from User c", User.class);
         Assert.assertEquals(5, query.getResultList().size());
     }
 
     @Test
     public void testGetAllNorwegian() throws Exception {
-        final TypedQuery<Customer> namedQuery = entityManager.createNamedQuery(Customer.allNorwegian, Customer.class);
+        final TypedQuery<User> namedQuery = entityManager.createNamedQuery(User.allNorwegian, User.class);
         Assert.assertEquals(3, namedQuery.getResultList().size());
     }
 
     @Test
     public void testGetAllFromOslo() throws Exception {
-        final TypedQuery<Customer> namedQuery = entityManager.createNamedQuery(Customer.allFromOslo, Customer.class);
+        final TypedQuery<User> namedQuery = entityManager.createNamedQuery(User.allFromOslo, User.class);
         Assert.assertEquals(2, namedQuery.getResultList().size());
     }
 }
