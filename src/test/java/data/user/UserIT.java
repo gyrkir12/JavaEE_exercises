@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import java.util.List;
 
@@ -37,15 +38,37 @@ public class UserIT {
         Assert.assertEquals(0, users.size());
     }
 
+    private User createAndPersistDefaultUser() {
+        final User user = ValidUserFactory.create();
+        return userEJB.create(user);
+    }
+
     @Test
     public void testCreateUser() throws Exception {
-        final User user = ValidUserFactory.create();
-        entityManager.getTransaction().begin();
-        final User createdUser = userEJB.create(user);
-        entityManager.getTransaction().commit();
-
+        User createdUser = createAndPersistDefaultUser();
         final List<User> all = userEJB.getAll();
         Assert.assertEquals(1, all.size());
         Assert.assertEquals(createdUser.getId(), all.get(0).getId());
+    }
+
+    @Test
+    public void testUpdateUser() throws Exception {
+        final User createdUser = createAndPersistDefaultUser();
+        final String newUserName = "newUserName";
+        createdUser.setUsername(newUserName);
+        userEJB.update(createdUser);
+
+        final User updatedUser = userEJB.getById(createdUser.getId());
+        Assert.assertEquals(newUserName, updatedUser.getUsername());
+    }
+
+    @Test(expected = NoResultException.class)
+    public void testDeleteUser() throws Exception {
+        final User createdUser = createAndPersistDefaultUser();
+        final User foundCreatedUser = userEJB.getById(createdUser.getId());
+        Assert.assertEquals(createdUser.getId(), foundCreatedUser.getId());
+
+        userEJB.delete(createdUser);
+        userEJB.getById(createdUser.getId());
     }
 }

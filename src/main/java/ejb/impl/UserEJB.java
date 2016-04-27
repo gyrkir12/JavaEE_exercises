@@ -5,6 +5,7 @@ import ejb.interfaces.EntityEJB;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -22,15 +23,18 @@ public class UserEJB implements EntityEJB<User> {
     }
 
     public User create(User user) {
+        entityManager.getTransaction().begin();
         entityManager.persist(user);
+        entityManager.getTransaction().commit();
         return user;
     }
 
     @Override
-    public User getById(long id) {
+    public User getById(long id) throws NoResultException {
         final TypedQuery<User> query = entityManager
                 .createNamedQuery(User.query_getById, User.class)
                 .setParameter("id", id);
+
         return query.getSingleResult();
     }
 
@@ -41,13 +45,18 @@ public class UserEJB implements EntityEJB<User> {
     }
 
     @Override
-    public void delete(User entity) {
-        final User user = entityManager.contains(entity) ? entity : entityManager.merge(entity);
-        entityManager.remove(user);
+    public User update(User entity) {
+        entityManager.getTransaction().begin();
+        final User updatedUser = entityManager.merge(entity);
+        entityManager.getTransaction().commit();
+        return updatedUser;
     }
 
     @Override
-    public User update(User entity) {
-        return entityManager.merge(entity);
+    public void delete(User entity) {
+        entityManager.getTransaction().begin();
+        final User user = entityManager.contains(entity) ? entity : entityManager.merge(entity);
+        entityManager.remove(user);
+        entityManager.getTransaction().commit();
     }
 }
