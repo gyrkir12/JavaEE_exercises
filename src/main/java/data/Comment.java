@@ -5,8 +5,16 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
+
 @Entity
+@NamedQueries(value = {
+        @NamedQuery(name = Comment.query_getAll, query = "SELECT c from Comment c"),
+        @NamedQuery(name = Comment.query_getById, query = "SELECT c from Comment c WHERE c.id = :id")
+})
 public class Comment {
+    public static final String query_getAll = "Comment.all";
+    public static final String query_getById = "Comment.byId";
+
     @Size(max = 64)
     private String title;
 
