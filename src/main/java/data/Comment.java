@@ -22,10 +22,10 @@ public class Comment {
     private String content;
     @NotNull
     @Past
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
     @NotNull
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private User user;
     //    private Score score; TODO
     @Id
@@ -33,28 +33,9 @@ public class Comment {
     private int id;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Comment comment = (Comment) o;
-
-        if (getId() != comment.getId()) return false;
-        if (getTitle() != null ? !getTitle().equals(comment.getTitle()) : comment.getTitle() != null) return false;
-        if (!getContent().equals(comment.getContent())) return false;
-        if (!getTimestamp().equals(comment.getTimestamp())) return false;
-        return getUser().equals(comment.getUser());
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = getTitle() != null ? getTitle().hashCode() : 0;
-        result = 31 * result + getContent().hashCode();
-        result = 31 * result + getTimestamp().hashCode();
-        result = 31 * result + getUser().hashCode();
-        result = 31 * result + getId();
-        return result;
+    public String toString() {
+        return String.format("Comment{title='%s', content='%s', timestamp=%s, user=%s, id=%d}",
+                title, content, timestamp, user, id);
     }
 
     public String getTitle() {
