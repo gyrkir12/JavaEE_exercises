@@ -12,7 +12,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
@@ -26,12 +25,8 @@ public class ValidationTest {
         validator = validatorFactory.getValidator();
         validatorFactory.close();
 
-        testComment = new Comment();
-        testComment.setTitle("Comment title");
-        testComment.setContent("Comment content");
-        testComment.setTimestamp(new Date());
-        User testAuthor = ValidTestUserFactory.create();
-        testComment.setAuthor(testAuthor);
+        final User testAuthor = ValidTestUserFactory.create();
+        testComment = ValidTestCommentFactory.create(testAuthor);
     }
 
     @Test
