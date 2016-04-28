@@ -1,20 +1,27 @@
 package data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
 public class Comment {
+    @Size(max = 64)
     private String title;
+
+    @NotNull
+    @Size(max = 500)
     private String content;
+
+    @NotNull
+    @Temporal(TemporalType.DATE)
     private Date timestamp;
 
     @ManyToOne
     private User author;
-//    private Score score; TODO
+
+    //    private Score score; TODO
     @Id
     @GeneratedValue
     private int id;
@@ -49,5 +56,13 @@ public class Comment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
