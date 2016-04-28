@@ -11,7 +11,7 @@ public class ValidTestCommentFactory {
         testComment.setTitle("Comment title");
         testComment.setContent("Comment content");
         testComment.setTimestamp(new Date());
-        testComment.setAuthor(author);
+        testComment.setUser(author);
 
         return testComment;
     }

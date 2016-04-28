@@ -58,7 +58,7 @@ public class User {
     @Size(max = 256)
     private String password;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
     private List<Comment> comments;
 
 //    @NotNull
