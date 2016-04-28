@@ -1,0 +1,62 @@
+package data.comment;
+
+import data.Comment;
+import data.User;
+import data.user.ValidTestUserFactory;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Set;
+
+public class ValidationTest {
+    private Validator validator;
+    private Comment testComment;
+
+    @Before
+    public void setUp() throws Exception {
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        validator = validatorFactory.getValidator();
+        validatorFactory.close();
+
+        testComment = new Comment();
+        testComment.setTitle("Comment title");
+        testComment.setContent("Comment content");
+        testComment.setTimestamp(new Date());
+        User testAuthor = ValidTestUserFactory.create();
+        testComment.setAuthor(testAuthor);
+    }
+
+    @Test
+    public void testDefaultCommentShouldValidate() throws Exception {
+        final Set<ConstraintViolation<Comment>> violations = validator.validate(testComment);
+        Assert.assertEquals(0, violations.size());
+    }
+
+    @Test
+    public void testSizeConstraintsShouldBeHonored() throws Exception {
+        String tooLongString = new String(new char[501]);
+        testComment.setTitle(tooLongString);
+        testComment.setContent(tooLongString);
+
+        final Set<ConstraintViolation<Comment>> violations = validator.validate(testComment);
+        Assert.assertEquals(2, violations.size());
+    }
+
+    @Test
+    public void testCommentTimestampCannotBeSetInFuture() throws Exception {
+        final Calendar calendar = GregorianCalendar.getInstance();
+        calendar.set(3000, Calendar.MARCH, 1);
+        testComment.setTimestamp(calendar.getTime());
+
+        final Set<ConstraintViolation<Comment>> violations = validator.validate(testComment);
+        Assert.assertEquals(1, violations.size());
+    }
+}

@@ -2,7 +2,6 @@ package data.user;
 
 import data.Address;
 import data.User;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,24 +15,19 @@ import java.util.GregorianCalendar;
 import java.util.Set;
 
 public class ValidationTest {
-    private ValidatorFactory validatorFactory;
     private Validator validator;
     private User testUser;
 
     @Before
     public void setUp() throws Exception {
-        validatorFactory = Validation.buildDefaultValidatorFactory();
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
         validator = validatorFactory.getValidator();
         testUser = ValidTestUserFactory.create();
-    }
-
-    @After
-    public void tearDown() throws Exception {
         validatorFactory.close();
     }
 
     @Test
-    public void testNormalCustomerShouldPass() throws Exception {
+    public void testDefaultCustomerShouldValidate() throws Exception {
         final User user = ValidTestUserFactory.create();
         final Set<ConstraintViolation<User>> violationSet = validator.validate(user);
         Assert.assertEquals(0, violationSet.size());
