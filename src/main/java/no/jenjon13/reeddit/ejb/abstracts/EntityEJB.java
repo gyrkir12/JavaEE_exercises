@@ -23,11 +23,7 @@ public abstract class EntityEJB<T> implements IEntityEJB<T> {
 
     @Override
     public T getById(long id) {
-        try {
-            return entityManager.find(clazz, id);
-        } catch (Exception e) {
-            return null;
-        }
+        return entityManager.find(clazz, id);
     }
 
     @Override
@@ -43,7 +39,8 @@ public abstract class EntityEJB<T> implements IEntityEJB<T> {
 
     @Override
     public void delete(T entity) {
-        entityManager.remove(entity);
+        final T entityToDelete = entityManager.contains(entity) ? entity : entityManager.merge(entity);
+        entityManager.remove(entityToDelete);
     }
 
     @Override

@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SiteSiteUserEJBTest {
+public class SiteUserEJBTest {
     private static SiteUserEJB userEJB;
     private static EJBContainer ec;
     private static Context ctx;
@@ -39,16 +39,15 @@ public class SiteSiteUserEJBTest {
         userEJB.deleteAll();
     }
 
+    private SiteUser createAndPersistDefaultUser() {
+        final SiteUser siteUser = ValidTestUserFactory.create();
+        return userEJB.create(siteUser);
+    }
+
     @Test
     public void testGetAllShouldReturnEmpty() throws Exception {
         final List<SiteUser> siteUsers = userEJB.getAll();
         Assert.assertEquals(0, siteUsers.size());
-    }
-
-    private SiteUser createAndPersistDefaultUser() {
-        final SiteUser siteUser = ValidTestUserFactory.create();
-        System.out.println(siteUser);
-        return userEJB.create(siteUser);
     }
 
     @Test
@@ -76,7 +75,7 @@ public class SiteSiteUserEJBTest {
         final SiteUser foundCreatedSiteUser = userEJB.getById(createdSiteUser.getId());
         Assert.assertEquals(createdSiteUser.getId(), foundCreatedSiteUser.getId());
 
-        userEJB.delete(foundCreatedSiteUser);
+        userEJB.delete(createdSiteUser);
         Assert.assertEquals(0, userEJB.getAll().size());
     }
 }
