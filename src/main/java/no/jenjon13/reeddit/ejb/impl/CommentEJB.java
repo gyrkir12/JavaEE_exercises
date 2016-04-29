@@ -10,11 +10,9 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-import static no.jenjon13.reeddit.config.MainConfig.PERSISTENCE_UNIT_NAME;
-
 @Stateless
 public class CommentEJB implements IEntityEJB<Comment> {
-    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
+    @PersistenceContext
     private EntityManager entityManager;
 
     @Override

@@ -11,12 +11,10 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
-import static no.jenjon13.reeddit.config.MainConfig.PERSISTENCE_UNIT_NAME;
-
 @Stateless
 @LocalBean
 public class SiteUserEJB implements IEntityEJB<SiteUser> {
-    @PersistenceContext(name = PERSISTENCE_UNIT_NAME)
+    @PersistenceContext
     private EntityManager entityManager;
 
     public SiteUser create(SiteUser siteUser) {

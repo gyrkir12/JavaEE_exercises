@@ -22,6 +22,12 @@ public class SiteUser {
     public static final String QUERY_GET_BY_ID = "SiteUser.byId";
     public static final String QUERY_DELETE_ALL = "SiteUser.deleteAll";
 
+    @Override
+    public String toString() {
+        return String.format("SiteUser{id=%d, firstName='%s', middleName='%s', surname='%s', dateOfBirth=%s, dateOfRegistration=%s, address=%s, username='%s', password='%s', comments=%s}",
+                id, firstName, middleName, surname, dateOfBirth, dateOfRegistration, address, username, password, comments);
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

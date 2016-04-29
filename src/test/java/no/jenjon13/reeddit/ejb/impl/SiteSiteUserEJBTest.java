@@ -47,6 +47,7 @@ public class SiteSiteUserEJBTest {
 
     private SiteUser createAndPersistDefaultUser() {
         final SiteUser siteUser = ValidTestUserFactory.create();
+        System.out.println(siteUser);
         return userEJB.create(siteUser);
     }
 
