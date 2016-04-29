@@ -71,11 +71,11 @@ public class SiteUserEJBTest {
 
     @Test
     public void testDeleteUser() throws Exception {
-        final SiteUser createdSiteUser = createAndPersistDefaultUser();
-        final SiteUser foundCreatedSiteUser = userEJB.getById(createdSiteUser.getId());
-        Assert.assertEquals(createdSiteUser.getId(), foundCreatedSiteUser.getId());
+        final SiteUser managedSiteUser = createAndPersistDefaultUser();
+        final SiteUser foundCreatedSiteUser = userEJB.getById(managedSiteUser.getId());
+        Assert.assertEquals(managedSiteUser.getId(), foundCreatedSiteUser.getId());
 
-        userEJB.delete(createdSiteUser);
+        userEJB.delete(foundCreatedSiteUser);
         Assert.assertEquals(0, userEJB.getAll().size());
     }
 }
