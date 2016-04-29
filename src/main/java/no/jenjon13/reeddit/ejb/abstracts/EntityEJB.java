@@ -45,4 +45,9 @@ public abstract class EntityEJB<T> implements IEntityEJB<T> {
     public void delete(T entity) {
         entityManager.remove(entity);
     }
+
+    @Override
+    public int deleteAll() {
+        return entityManager.createQuery("DELETE FROM " + clazz.getSimpleName()).executeUpdate();
+    }
 }

@@ -76,7 +76,7 @@ public class SiteSiteUserEJBTest {
         final SiteUser foundCreatedSiteUser = userEJB.getById(createdSiteUser.getId());
         Assert.assertEquals(createdSiteUser.getId(), foundCreatedSiteUser.getId());
 
-        userEJB.delete(createdSiteUser);
+        userEJB.delete(foundCreatedSiteUser);
         Assert.assertEquals(0, userEJB.getAll().size());
     }
 }
