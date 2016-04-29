@@ -1,4 +1,4 @@
-package data;
+package no.jenjon13.reeddit.data.entities;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;

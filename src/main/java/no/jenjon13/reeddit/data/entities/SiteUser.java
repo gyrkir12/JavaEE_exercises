@@ -1,6 +1,6 @@
-package data;
+package no.jenjon13.reeddit.data.entities;
 
-import constraints.Age;
+import no.jenjon13.reeddit.data.constraints.Age;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -12,16 +12,18 @@ import java.util.List;
 
 @Entity
 @NamedQueries(value = {
-        @NamedQuery(name = User.query_getAll, query = "SELECT u from User u"),
-        @NamedQuery(name = User.query_getById, query = "SELECT u from User u WHERE u.id = :id")
+        @NamedQuery(name = SiteUser.QUERY_GET_ALL, query = "SELECT u from SiteUser u"),
+        @NamedQuery(name = SiteUser.QUERY_GET_BY_ID, query = "SELECT u from SiteUser u WHERE u.id = :id"),
+        @NamedQuery(name = SiteUser.QUERY_DELETE_ALL, query = "DELETE FROM SiteUser")
 })
 @Age(min = 18)
-public class User {
-    public static final String query_getAll = "User.all";
-    public static final String query_getById = "User.byId";
+public class SiteUser {
+    public static final String QUERY_GET_ALL = "SiteUser.all";
+    public static final String QUERY_GET_BY_ID = "SiteUser.byId";
+    public static final String QUERY_DELETE_ALL = "SiteUser.deleteAll";
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @NotNull
@@ -58,7 +60,7 @@ public class User {
     @Size(max = 256)
     private String password;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user")
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "siteUser")
     private List<Comment> comments;
 
 //    @NotNull

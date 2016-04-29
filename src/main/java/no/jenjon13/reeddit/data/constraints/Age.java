@@ -1,4 +1,4 @@
-package constraints;
+package no.jenjon13.reeddit.data.constraints;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
@@ -10,7 +10,7 @@ import java.lang.annotation.*;
 @Documented
 public @interface Age {
 
-    String message() default "constraints.Age is out of range";
+    String message() default "Age is out of range";
 
     Class<?>[] groups() default {};
 

@@ -1,4 +1,4 @@
-package data;
+package no.jenjon13.reeddit.data.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,12 +9,14 @@ import java.util.Date;
 
 @Entity
 @NamedQueries(value = {
-        @NamedQuery(name = Comment.query_getAll, query = "SELECT c from Comment c"),
-        @NamedQuery(name = Comment.query_getById, query = "SELECT c from Comment c WHERE c.id = :id")
+        @NamedQuery(name = Comment.QUERY_GET_ALL, query = "SELECT c FROM Comment c"),
+        @NamedQuery(name = Comment.QUERY_GET_BY_ID, query = "SELECT c FROM Comment c WHERE c.id = :id"),
+        @NamedQuery(name = Comment.QUERY_DELETE_ALL, query = "DELETE FROM Comment")
 })
 public class Comment {
-    public static final String query_getAll = "Comment.all";
-    public static final String query_getById = "Comment.byId";
+    public static final String QUERY_GET_ALL = "Comment.all";
+    public static final String QUERY_GET_BY_ID = "Comment.byId";
+    public static final String QUERY_DELETE_ALL = "Comment.deleteAll";
     @Size(max = 64)
     private String title;
     @NotNull
@@ -26,16 +28,16 @@ public class Comment {
     private Date timestamp;
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    private User user;
+    private SiteUser siteUser;
     //    private Score score; TODO
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Override
     public String toString() {
-        return String.format("Comment{title='%s', content='%s', timestamp=%s, user=%s, id=%d}",
-                title, content, timestamp, user, id);
+        return String.format("Comment{title='%s', content='%s', timestamp=%s, siteUser=%s, id=%d}",
+                title, content, timestamp, siteUser, id);
     }
 
     public String getTitle() {
@@ -71,11 +73,11 @@ public class Comment {
     }
 
     //    @JoinColumn(name = "AUTHOR_ID")
-    public User getUser() {
-        return user;
+    public SiteUser getSiteUser() {
+        return siteUser;
     }
 
-    public void setUser(User author) {
-        this.user = author;
+    public void setSiteUser(SiteUser author) {
+        this.siteUser = author;
     }
 }

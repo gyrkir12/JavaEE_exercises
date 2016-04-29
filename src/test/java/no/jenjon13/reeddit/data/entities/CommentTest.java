@@ -1,8 +1,5 @@
-package data.comment;
+package no.jenjon13.reeddit.data.entities;
 
-import data.Comment;
-import data.User;
-import data.user.ValidTestUserFactory;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,7 +12,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Set;
 
-public class ValidationTest {
+public class CommentTest {
     private Validator validator;
     private Comment testComment;
 
@@ -25,7 +22,7 @@ public class ValidationTest {
         validator = validatorFactory.getValidator();
         validatorFactory.close();
 
-        final User testAuthor = ValidTestUserFactory.create();
+        final SiteUser testAuthor = ValidTestUserFactory.create();
         testComment = ValidTestCommentFactory.create(testAuthor);
     }
 

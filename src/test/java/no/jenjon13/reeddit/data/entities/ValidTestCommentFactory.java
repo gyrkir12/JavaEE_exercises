@@ -1,17 +1,14 @@
-package data.comment;
-
-import data.Comment;
-import data.User;
+package no.jenjon13.reeddit.data.entities;
 
 import java.util.Date;
 
 public class ValidTestCommentFactory {
-    public static Comment create(User author) {
+    public static Comment create(SiteUser author) {
         Comment testComment = new Comment();
         testComment.setTitle("Comment title");
         testComment.setContent("Comment content");
         testComment.setTimestamp(new Date());
-        testComment.setUser(author);
+        testComment.setSiteUser(author);
 
         return testComment;
     }
