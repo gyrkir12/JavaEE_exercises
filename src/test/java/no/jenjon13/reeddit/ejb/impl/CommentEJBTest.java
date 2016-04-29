@@ -37,22 +37,17 @@ public class CommentEJBTest {
     @Before
     @After
     public void setUp() throws Exception {
-        userEJB.deleteAll();
         commentEJB.deleteAll();
+        userEJB.deleteAll();
     }
 
     @Test
     public void testCreateComment() throws Exception {
-        final SiteUser siteUser = ValidTestUserFactory.create();
-        final Comment testComment = ValidTestCommentFactory.create(siteUser);
-        final Comment persistedTestComment = commentEJB.create(testComment);
+        final SiteUser testSiteUser = ValidTestUserFactory.create();
+        final Comment testComment = ValidTestCommentFactory.create(testSiteUser);
+        final Comment managedTestComment = commentEJB.create(testComment);
 
         final Comment fetchedComment = commentEJB.getAll().get(0);
-        Assert.assertEquals(persistedTestComment, fetchedComment);
-
-        final SiteUser fetchedSiteUser = userEJB.getById(fetchedComment.getSiteUser().getId());
-        final Comment fetchedUserComment = fetchedSiteUser.getComments().get(0);
-
-        Assert.assertEquals(fetchedComment.getId(), fetchedUserComment.getId());
+        Assert.assertEquals(managedTestComment.getId(), fetchedComment.getId());
     }
 }

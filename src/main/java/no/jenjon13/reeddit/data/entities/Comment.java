@@ -6,33 +6,29 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-
 @Entity
-@NamedQueries(value = {
-        @NamedQuery(name = Comment.QUERY_GET_ALL, query = "SELECT c FROM Comment c"),
-        @NamedQuery(name = Comment.QUERY_GET_BY_ID, query = "SELECT c FROM Comment c WHERE c.id = :id"),
-        @NamedQuery(name = Comment.QUERY_DELETE_ALL, query = "DELETE FROM Comment")
-})
 public class Comment {
-    public static final String QUERY_GET_ALL = "Comment.all";
-    public static final String QUERY_GET_BY_ID = "Comment.byId";
-    public static final String QUERY_DELETE_ALL = "Comment.deleteAll";
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     @Size(max = 64)
     private String title;
+
     @NotNull
     @Size(max = 500)
     private String content;
+
     @NotNull
     @Past
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
+
     @NotNull
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private SiteUser siteUser;
+
     //    private Score score; TODO
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
     @Override
     public String toString() {
@@ -72,7 +68,6 @@ public class Comment {
         this.id = id;
     }
 
-    //    @JoinColumn(name = "AUTHOR_ID")
     public SiteUser getSiteUser() {
         return siteUser;
     }
