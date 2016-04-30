@@ -1,4 +1,4 @@
-package no.jenjon13.reeddit.data.entities;
+package no.jenjon13.reeddit.data.entities.embeddables;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;

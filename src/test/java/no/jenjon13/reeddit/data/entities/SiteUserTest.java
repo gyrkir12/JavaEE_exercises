@@ -1,5 +1,6 @@
 package no.jenjon13.reeddit.data.entities;
 
+import no.jenjon13.reeddit.data.entities.embeddables.Address;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

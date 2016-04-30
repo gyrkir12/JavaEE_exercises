@@ -1,5 +1,7 @@
 package no.jenjon13.reeddit.data.entities;
 
+import no.jenjon13.reeddit.data.entities.embeddables.Address;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;

@@ -1,6 +1,7 @@
 package no.jenjon13.reeddit.data.entities;
 
 import no.jenjon13.reeddit.data.constraints.Age;
+import no.jenjon13.reeddit.data.entities.embeddables.Address;
 
 import javax.persistence.*;
 import javax.validation.Valid;

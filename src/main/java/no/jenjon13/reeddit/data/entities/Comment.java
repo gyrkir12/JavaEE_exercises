@@ -1,5 +1,7 @@
 package no.jenjon13.reeddit.data.entities;
 
+import no.jenjon13.reeddit.data.entities.embeddables.Score;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -27,8 +29,9 @@ public class Comment {
     @NotNull
     @ManyToOne(cascade = CascadeType.PERSIST)
     private SiteUser siteUser;
-
-    //    private Score score; TODO
+    
+    @Embedded
+    private Score score;
 
     @Override
     public String toString() {
@@ -74,5 +77,13 @@ public class Comment {
 
     public void setSiteUser(SiteUser author) {
         this.siteUser = author;
+    }
+
+    public Score getScore() {
+        return score;
+    }
+
+    public void setScore(Score score) {
+        this.score = score;
     }
 }
