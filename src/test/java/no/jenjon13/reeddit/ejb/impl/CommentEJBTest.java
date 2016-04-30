@@ -15,7 +15,7 @@ public class CommentEJBTest extends EntityEJBTest {
 
     @Before
     public void setUp() throws Exception {
-        commentEJB =  getEJB(CommentEJB.class);
+        commentEJB = getEJB(CommentEJB.class);
     }
 
     @After

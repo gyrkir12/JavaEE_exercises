@@ -8,21 +8,11 @@ import java.util.List;
 
 @Embeddable
 public class Score {
-    private int points;
-
     @OneToMany
     private List<SiteUser> usersUpvoted;
 
     @OneToMany
     private List<SiteUser> usersDownvoted;
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
-    }
 
     public List<SiteUser> getUsersUpvoted() {
         return usersUpvoted;

@@ -29,7 +29,7 @@ public class Comment {
     @NotNull
     @ManyToOne(cascade = CascadeType.PERSIST)
     private SiteUser siteUser;
-    
+
     @Embedded
     private Score score;
 
@@ -81,9 +81,5 @@ public class Comment {
 
     public Score getScore() {
         return score;
-    }
-
-    public void setScore(Score score) {
-        this.score = score;
     }
 }
