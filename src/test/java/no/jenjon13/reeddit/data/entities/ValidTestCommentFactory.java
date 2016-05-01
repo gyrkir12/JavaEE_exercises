@@ -1,7 +1,5 @@
 package no.jenjon13.reeddit.data.entities;
 
-import no.jenjon13.reeddit.data.entities.embeddables.Score;
-
 import java.util.Date;
 
 public class ValidTestCommentFactory {
@@ -11,7 +9,6 @@ public class ValidTestCommentFactory {
         testComment.setContent("Comment content");
         testComment.setTimestamp(new Date());
         testComment.setSiteUser(author);
-        testComment.setScore(new Score());
 
         return testComment;
     }

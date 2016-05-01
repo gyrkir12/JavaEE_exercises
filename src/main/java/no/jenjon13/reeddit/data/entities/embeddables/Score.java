@@ -29,4 +29,8 @@ public class Score {
     public void setUsersDownvoted(List<SiteUser> usersDownvoted) {
         this.usersDownvoted = usersDownvoted;
     }
+
+    public int getPoints() {
+        return getUsersUpvoted().size() - getUsersDownvoted().size();
+    }
 }

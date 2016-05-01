@@ -5,7 +5,12 @@ import no.jenjon13.reeddit.ejb.interfaces.IEntityEJB;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 import java.util.List;
+import java.util.Set;
 
 public abstract class EntityEJB<T> implements IEntityEJB<T> {
     private Class<T> clazz;
@@ -17,7 +22,18 @@ public abstract class EntityEJB<T> implements IEntityEJB<T> {
     }
 
     public T create(T entity) {
-        entityManager.persist(entity);
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set<ConstraintViolation<T>> constraintViolations = validator.validate(entity);
+
+        if (constraintViolations.size() > 0) {
+            for (ConstraintViolation<T> cv : constraintViolations) {
+                System.err.println(cv.getRootBeanClass().getName() + "." + cv.getPropertyPath() + " " + cv.getMessage());
+            }
+        } else {
+            entityManager.persist(entity);
+        }
+
         return entity;
     }
 

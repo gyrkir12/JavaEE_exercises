@@ -31,7 +31,7 @@ public class Comment {
     private SiteUser siteUser;
 
     @Embedded
-    private Score score;
+    private Score score = new Score();
 
     @Override
     public String toString() {
