@@ -12,6 +12,12 @@ import javax.validation.ValidatorFactory;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Abstract class implementing the methods specified by the interface.
+ * Provides basic CRUD functionality for the given type T, using the injected EntityManager.
+ *
+ * @param <T> The type which the EJB is to be used for.
+ */
 public abstract class EntityEJB<T> implements IEntityEJB<T> {
     private Class<T> clazz;
     @PersistenceContext
