@@ -3,10 +3,12 @@ package no.jenjon13.reeddit.data.entities;
 import no.jenjon13.reeddit.data.entities.embeddables.Score;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class News {
@@ -27,10 +29,13 @@ public class News {
     @Temporal(TemporalType.TIMESTAMP)
     private Date timestamp;
 
-    @NotNull
     @ManyToOne(cascade = CascadeType.PERSIST)
     private SiteUser siteUser;
 
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Comment> comments;
+
+    @Valid
     @Embedded
     private Score score = new Score();
 
@@ -80,5 +85,13 @@ public class News {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }
