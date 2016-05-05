@@ -20,11 +20,11 @@ public class CommentEJBTest extends EntityEJBTest {
     public void setUp() throws Exception {
         commentEJB = getEJB(CommentEJB.class);
         siteUserEJB = getEJB(SiteUserEJB.class);
-        clean();
+        tearDown();
     }
 
     @After
-    public void clean() {
+    public void tearDown() {
         commentEJB.deleteAll();
         siteUserEJB.deleteAll();
     }

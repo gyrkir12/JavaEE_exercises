@@ -11,12 +11,12 @@ public class SiteUserEJBTest extends EntityEJBTest {
     private SiteUserEJB siteUserEJB;
 
     @Before
-    public void init() {
+    public void setUp() {
         siteUserEJB = getEJB(SiteUserEJB.class);
     }
 
     @After
-    public void emptyDatabase() {
+    public void tearDown() {
         siteUserEJB.deleteAll();
     }
 
