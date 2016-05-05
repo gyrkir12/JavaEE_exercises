@@ -1,7 +1,7 @@
 package no.jenjon13.reeddit.ejb.impl;
 
 import no.jenjon13.reeddit.data.entities.News;
-import no.jenjon13.reeddit.ejb.abstracts.EntityEJBTest;
+import no.jenjon13.reeddit.ejb.abstracts.EntityEJBIT;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import java.util.Date;
 
-public class NewsEJBTest extends EntityEJBTest {
+public class NewsEJBIT extends EntityEJBIT {
     private NewsEJB newsEJB;
 
     @Before

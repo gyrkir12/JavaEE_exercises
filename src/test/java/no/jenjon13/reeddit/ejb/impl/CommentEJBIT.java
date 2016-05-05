@@ -5,14 +5,14 @@ import no.jenjon13.reeddit.data.entities.SiteUser;
 import no.jenjon13.reeddit.data.entities.ValidTestCommentFactory;
 import no.jenjon13.reeddit.data.entities.ValidTestUserFactory;
 import no.jenjon13.reeddit.data.entities.embeddables.Score;
-import no.jenjon13.reeddit.ejb.abstracts.EntityEJBTest;
+import no.jenjon13.reeddit.ejb.abstracts.EntityEJBIT;
 import no.jenjon13.reeddit.ejb.util.VoteCheck;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CommentEJBTest extends EntityEJBTest {
+public class CommentEJBIT extends EntityEJBIT {
     private CommentEJB commentEJB;
     private SiteUserEJB siteUserEJB;
 

@@ -2,12 +2,12 @@ package no.jenjon13.reeddit.ejb.impl;
 
 import no.jenjon13.reeddit.data.entities.SiteUser;
 import no.jenjon13.reeddit.data.entities.ValidTestUserFactory;
-import no.jenjon13.reeddit.ejb.abstracts.EntityEJBTest;
+import no.jenjon13.reeddit.ejb.abstracts.EntityEJBIT;
 import org.junit.*;
 
 import java.util.List;
 
-public class SiteUserEJBTest extends EntityEJBTest {
+public class SiteUserEJBIT extends EntityEJBIT {
     private SiteUserEJB siteUserEJB;
 
     @Before
