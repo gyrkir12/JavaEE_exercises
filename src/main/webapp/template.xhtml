@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>PG6100</title>
+</h:head>
+<h:body>
+    <h:form>
+        <p:menubar>
+            <p:submenu label="User">
+                <p:menuitem value="New" url="/user/registration.jsf"/>
+                <p:menuitem value="List" url="/user/"/>
+            </p:submenu>
+        </p:menubar>
+    </h:form>
+    <br/>
+    <ui:insert name="content">Default content</ui:insert>
+    <br/>
+</h:body>
+</html>

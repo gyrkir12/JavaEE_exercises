@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="../template.xhtml">
+    <ui:define name="content">
+        <p:dataTable id="users" var="user" value="#{siteUserEJB.all()}">
+            <p:column headerText="id">
+                <h:outputText value="#{user.id}"/>
+            </p:column>
+
+            <p:column headerText="E-mail">
+                <h:outputText value="#{user.email}"/>
+            </p:column>
+
+            <p:column headerText="Actions">
+                <p:link outcome="details">
+                    <f:param name="id" value="#{user.id}"/>
+                    <p:button value="Details"/>
+                </p:link>
+                <p:commandButton value="Delete" action="#{siteUserEJB.delete(user)}" update="users"/>
+            </p:column>
+        </p:dataTable>
+    </ui:define>
+</ui:composition>
+</html>

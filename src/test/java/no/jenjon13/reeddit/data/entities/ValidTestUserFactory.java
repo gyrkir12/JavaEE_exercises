@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class ValidTestUserFactory {
+    // TODO replace with JavaFaker/Fariry
+
     public static SiteUser create() {
         final SiteUser siteUser = new SiteUser();
         siteUser.setFirstName("Jonas");
