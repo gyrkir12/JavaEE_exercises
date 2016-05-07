@@ -10,19 +10,26 @@
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="3" cellpadding="5">
-                <p:outputLabel for="email" value="E-mail"/>
-                <p:inputText id="email" value="#{siteUserEJB.user.email}" required="true"/>
-                <p:message for="email"/>
+                <p:outputLabel for="firstname" value="Name"/>
+                <p:inputText id="firstname" value="#{siteUserController.siteUser.firstName}" required="true"/>
+                <p:message for="firstname"/>
+
+                <p:outputLabel for="middlename" value="Middle name"/>
+                <p:inputText id="middlename" value="#{siteUserController.siteUser.middleName}" />
+                <p:message for="middlename"/>
+
+                <p:outputLabel for="surname" value="Name"/>
+                <p:inputText id="surname" value="#{siteUserController.siteUser.surname}" required="true"/>
+                <p:message for="surname"/>
+
+                <p:outputLabel for="dateOfBirth" value="Name"/>
+                <p:calendar id="dateOfBirth" value="#{siteUserController.siteUser.dateOfBirth}" required="true"/>
+                <p:message for="dateOfBirth"/>
 
                 <p:outputLabel for="password" value="Password"/>
-                <p:password id="password" value="#{userController.user.password}" required="true" feedback="true"/>
+                <p:password id="password" value="#{siteUserController.siteUser.password}" required="true" feedback="true"/>
                 <p:message for="password"/>
 
-                <p:outputLabel for="userType" value="Type"/>
-                <p:selectOneButton id="userType" value="#{userController.user.type}" required="true">
-                    <f:selectItems value="#{userController.getUserTypes()}"/>
-                </p:selectOneButton>
-                <p:message for="userType"/>
             </h:panelGrid>
 
             <p:commandButton value="Submit" ajax="false" action="#{userController.persist}"
