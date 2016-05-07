@@ -4,24 +4,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../template.xhtml">
     <ui:define name="content">
-        <p:dataTable id="users" var="user" value="#{siteUserEJB.all()}">
+        <p:dataTable id="users" var="user" value="#{siteUserController.all}">
             <p:column headerText="id">
                 <h:outputText value="#{user.id}"/>
             </p:column>
 
-            <p:column headerText="E-mail">
-                <h:outputText value="#{user.email}"/>
+            <p:column headerText="Username">
+                <h:outputText value="#{user.username}"/>
             </p:column>
 
             <p:column headerText="Actions">
-                <p:link outcome="details">
-                    <f:param name="id" value="#{user.id}"/>
-                    <p:button value="Details"/>
-                </p:link>
-                <p:commandButton value="Delete" action="#{siteUserEJB.delete(user)}" update="users"/>
+                <p:commandButton value="Delete" action="#{siteUserController.delete(user.id)}" update="users"/>
             </p:column>
         </p:dataTable>
     </ui:define>

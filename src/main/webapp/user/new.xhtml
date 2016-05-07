@@ -4,35 +4,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../template.xhtml">
     <ui:define name="content">
         <h:form>
             <h:panelGrid columns="3" cellpadding="5">
-                <p:outputLabel for="firstname" value="Name"/>
-                <p:inputText id="firstname" value="#{siteUserController.siteUser.firstName}" required="true"/>
-                <p:message for="firstname"/>
+                <p:outputLabel for="username" value="Name"/>
+                <p:inputText id="username" value="#{siteUserController.siteUser.username}" required="true"/>
+                <p:message for="username"/>
 
-                <p:outputLabel for="middlename" value="Middle name"/>
-                <p:inputText id="middlename" value="#{siteUserController.siteUser.middleName}" />
-                <p:message for="middlename"/>
+                <p:outputLabel for="password1" value="Password:"/>
+                <p:password id="password1" value="#{siteUserController.siteUser.password}" feedback="true" match="password2" required="true"/>
+                <p:message for="password1"/>
 
-                <p:outputLabel for="surname" value="Name"/>
-                <p:inputText id="surname" value="#{siteUserController.siteUser.surname}" required="true"/>
-                <p:message for="surname"/>
-
-                <p:outputLabel for="dateOfBirth" value="Name"/>
-                <p:calendar id="dateOfBirth" value="#{siteUserController.siteUser.dateOfBirth}" required="true"/>
-                <p:message for="dateOfBirth"/>
-
-                <p:outputLabel for="password" value="Password"/>
-                <p:password id="password" value="#{siteUserController.siteUser.password}" required="true" feedback="true"/>
-                <p:message for="password"/>
-
+                <p:outputLabel for="password2" value="Confirm password:"/>
+                <p:password id="password2" value="#{siteUserController.siteUser.password}" feedback="true" required="true"/>
+                <p:message for="password2"/>
             </h:panelGrid>
 
-            <p:commandButton value="Submit" ajax="false" action="#{userController.persist}"
+            <p:commandButton value="Submit" ajax="false" action="#{siteUserController.persist}"
                              icon="ui-icon ui-icon-disk"/>
         </h:form>
     </ui:define>

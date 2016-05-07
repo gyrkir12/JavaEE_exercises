@@ -15,7 +15,7 @@ public class SiteUser {
     @NotNull
     @Past
     @Temporal(TemporalType.DATE)
-    private Date dateOfRegistration;
+    private Date dateOfRegistration = new Date();
 
     @NotNull
     @Size(max = 64)
