@@ -21,18 +21,17 @@ public class SiteUserTest {
     }
 
     @Test
-    public void testDefaultCustomerShouldValidate() throws Exception {
+    public void testDefaultUserShouldValidate() throws Exception {
         final SiteUser siteUser = ValidTestUserFactory.create();
         final Set<ConstraintViolation<SiteUser>> violationSet = validator.validate(siteUser);
         Assert.assertEquals(0, violationSet.size());
     }
 
     @Test
-    public void testCustomerWithNonNullableNullValuesShouldFail() throws Exception {
+    public void testUserWithNonNullableNullValuesShouldFail() throws Exception {
         final SiteUser siteUser = new SiteUser();
         final Set<ConstraintViolation<SiteUser>> violations = validator.validate(siteUser);
 
         Assert.assertTrue(violations.size() > 0);
     }
-
 }

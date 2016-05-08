@@ -3,7 +3,10 @@ package no.jenjon13.reeddit.ejb.impl;
 import no.jenjon13.reeddit.data.entities.SiteUser;
 import no.jenjon13.reeddit.data.entities.ValidTestUserFactory;
 import no.jenjon13.reeddit.ejb.abstracts.EntityEJBIT;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
@@ -59,4 +62,17 @@ public class SiteUserEJBIT extends EntityEJBIT {
         siteUserEJB.delete(foundCreatedSiteUser);
         Assert.assertEquals(0, siteUserEJB.getAll().size());
     }
+
+//    @Test
+//    public void testCannotHaveDuplicateUserNames() throws Exception {
+//        final String identicalUserName = "IDENTICAL_USER_NAME";
+//
+//        final SiteUser siteUser1 = ValidTestUserFactory.create();
+//        siteUser1.setUsername(identicalUserName);
+//        siteUserEJB.create(siteUser1);
+//
+//        final SiteUser siteUser2 = ValidTestUserFactory.create();
+//        siteUser2.setUsername(identicalUserName);
+//        siteUserEJB.create(siteUser2);
+//    }
 }
