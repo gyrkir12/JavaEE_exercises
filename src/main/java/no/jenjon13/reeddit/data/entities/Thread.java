@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class News {
+public class Thread {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
