@@ -10,9 +10,9 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
-public class CommentTest {
+public class PostTest {
     private Validator validator;
-    private Comment testComment;
+    private Post testPost;
 
     @Before
     public void setUp() throws Exception {
@@ -21,22 +21,22 @@ public class CommentTest {
         validatorFactory.close();
 
         final SiteUser testAuthor = ValidTestUserFactory.create();
-        testComment = ValidTestCommentFactory.create(testAuthor);
+        testPost = ValidTestPostFactory.create(testAuthor);
     }
 
     @Test
     public void testDefaultCommentShouldValidate() throws Exception {
-        final Set<ConstraintViolation<Comment>> violations = validator.validate(testComment);
+        final Set<ConstraintViolation<Post>> violations = validator.validate(testPost);
         Assert.assertEquals(0, violations.size());
     }
 
     @Test
     public void testSizeConstraintsShouldBeHonored() throws Exception {
         String tooLongString = new String(new char[501]);
-        testComment.setTitle(tooLongString);
-        testComment.setContent(tooLongString);
+        testPost.setTitle(tooLongString);
+        testPost.setContent(tooLongString);
 
-        final Set<ConstraintViolation<Comment>> violations = validator.validate(testComment);
+        final Set<ConstraintViolation<Post>> violations = validator.validate(testPost);
         Assert.assertEquals(2, violations.size());
     }
 }

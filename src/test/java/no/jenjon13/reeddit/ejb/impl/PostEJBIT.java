@@ -1,8 +1,8 @@
 package no.jenjon13.reeddit.ejb.impl;
 
-import no.jenjon13.reeddit.data.entities.Comment;
+import no.jenjon13.reeddit.data.entities.Post;
 import no.jenjon13.reeddit.data.entities.SiteUser;
-import no.jenjon13.reeddit.data.entities.ValidTestCommentFactory;
+import no.jenjon13.reeddit.data.entities.ValidTestPostFactory;
 import no.jenjon13.reeddit.data.entities.ValidTestUserFactory;
 import no.jenjon13.reeddit.data.entities.embeddables.Score;
 import no.jenjon13.reeddit.ejb.abstracts.EntityEJBIT;
@@ -12,63 +12,63 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CommentEJBIT extends EntityEJBIT {
-    private CommentEJB commentEJB;
+public class PostEJBIT extends EntityEJBIT {
+    private PostEJB postEJB;
     private SiteUserEJB siteUserEJB;
 
     @Before
     public void setUp() throws Exception {
-        commentEJB = getEJB(CommentEJB.class);
+        postEJB = getEJB(PostEJB.class);
         siteUserEJB = getEJB(SiteUserEJB.class);
         tearDown();
     }
 
     @After
     public void tearDown() {
-        commentEJB.deleteAll();
+        postEJB.deleteAll();
         siteUserEJB.deleteAll();
     }
 
-    private Comment createComment() {
+    private Post createComment() {
         final SiteUser testSiteUser = ValidTestUserFactory.create();
-        final Comment testComment = ValidTestCommentFactory.create(testSiteUser);
-        return commentEJB.create(testComment);
+        final Post testPost = ValidTestPostFactory.create(testSiteUser);
+        return postEJB.create(testPost);
     }
 
     @Test
     public void testCreatedCommentGetsPersisted() throws Exception {
-        final Comment managedTestComment = createComment();
-        final Comment fetchedComment = commentEJB.getAll().get(0);
-        Assert.assertEquals(managedTestComment.getId(), fetchedComment.getId());
+        final Post managedTestPost = createComment();
+        final Post fetchedPost = postEJB.getAll().get(0);
+        Assert.assertEquals(managedTestPost.getId(), fetchedPost.getId());
     }
 
     @Test
     public void testUserCanUpvote() throws Exception {
-        final Comment comment = createComment();
+        final Post post = createComment();
         final SiteUser siteUser = siteUserEJB.getAll().get(0);
         Assert.assertNotNull(siteUser);
 
-        final Score commentScore = comment.getScore();
+        final Score commentScore = post.getScore();
         Assert.assertFalse(VoteCheck.hasUserUpvoted(siteUser, commentScore.getUsersUpvoted()));
-        Assert.assertEquals(0, comment.getScore().getPoints());
+        Assert.assertEquals(0, post.getScore().getPoints());
 
-        commentEJB.upvote(comment, siteUser);
+        postEJB.upvote(post, siteUser);
         Assert.assertTrue(VoteCheck.hasUserUpvoted(siteUser, commentScore.getUsersUpvoted()));
-        Assert.assertEquals(1, comment.getScore().getPoints());
+        Assert.assertEquals(1, post.getScore().getPoints());
     }
 
     @Test
     public void testUserCanDownvote() throws Exception {
-        final Comment comment = createComment();
+        final Post post = createComment();
         final SiteUser siteUser = siteUserEJB.getAll().get(0);
         Assert.assertNotNull(siteUser);
 
-        final Score commentScore = comment.getScore();
+        final Score commentScore = post.getScore();
         Assert.assertFalse(VoteCheck.hasUserDownvoted(siteUser, commentScore.getUsersDownvoted()));
-        Assert.assertEquals(0, comment.getScore().getPoints());
+        Assert.assertEquals(0, post.getScore().getPoints());
 
-        commentEJB.downvote(comment, siteUser);
+        postEJB.downvote(post, siteUser);
         Assert.assertTrue(VoteCheck.hasUserDownvoted(siteUser, commentScore.getUsersDownvoted()));
-        Assert.assertEquals(-1, comment.getScore().getPoints());
+        Assert.assertEquals(-1, post.getScore().getPoints());
     }
 }

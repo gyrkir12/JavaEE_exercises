@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Entity
-public class Comment {
+public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -33,7 +33,7 @@ public class Comment {
 
     @Override
     public String toString() {
-        return String.format("Comment{title='%s', content='%s', timestamp=%s, siteUser=%s, id=%d}",
+        return String.format("Post{title='%s', content='%s', timestamp=%s, siteUser=%s, id=%d}",
                 title, content, timestamp, siteUser, id);
     }
 

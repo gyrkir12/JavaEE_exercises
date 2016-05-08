@@ -33,7 +33,7 @@ public class Thread {
     private SiteUser siteUser;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    private List<Comment> comments;
+    private List<Post> posts;
 
     @Valid
     @Embedded
@@ -87,11 +87,11 @@ public class Thread {
         this.content = content;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
