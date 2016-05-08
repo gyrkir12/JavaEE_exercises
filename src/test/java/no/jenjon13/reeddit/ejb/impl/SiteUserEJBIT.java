@@ -58,21 +58,22 @@ public class SiteUserEJBIT extends EntityEJBIT {
         final SiteUser managedSiteUser = createAndPersistDefaultUser();
         final SiteUser foundCreatedSiteUser = siteUserEJB.getById(managedSiteUser.getId());
         Assert.assertEquals(managedSiteUser.getId(), foundCreatedSiteUser.getId());
+        Assert.assertEquals(1, siteUserEJB.getAll().size());
 
         siteUserEJB.delete(foundCreatedSiteUser);
         Assert.assertEquals(0, siteUserEJB.getAll().size());
     }
 
-//    @Test
-//    public void testCannotHaveDuplicateUserNames() throws Exception {
-//        final String identicalUserName = "IDENTICAL_USER_NAME";
-//
-//        final SiteUser siteUser1 = ValidTestUserFactory.create();
-//        siteUser1.setUsername(identicalUserName);
-//        siteUserEJB.create(siteUser1);
-//
-//        final SiteUser siteUser2 = ValidTestUserFactory.create();
-//        siteUser2.setUsername(identicalUserName);
-//        siteUserEJB.create(siteUser2);
-//    }
+    @Test(expected = Exception.class)
+    public void testCannotHaveDuplicateUserNames() throws Exception {
+        final String identicalUserName = "IDENTICAL_USER_NAME";
+
+        final SiteUser siteUser1 = ValidTestUserFactory.create();
+        siteUser1.setUsername(identicalUserName);
+        siteUserEJB.create(siteUser1);
+
+        final SiteUser siteUser2 = ValidTestUserFactory.create();
+        siteUser2.setUsername(identicalUserName);
+        siteUserEJB.create(siteUser2);
+    }
 }

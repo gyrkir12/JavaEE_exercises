@@ -21,7 +21,7 @@ import java.util.Set;
 public abstract class EntityEJB<T> implements IEntityEJB<T> {
     private Class<T> clazz;
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     public EntityEJB(Class<T> clazz) {
         this.clazz = clazz;
