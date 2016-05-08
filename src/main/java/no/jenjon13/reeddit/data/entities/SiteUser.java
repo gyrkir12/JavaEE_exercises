@@ -17,6 +17,7 @@ public class SiteUser {
 
     @NotNull
     @Size(max = 64)
+    @Column(unique = true)
     private String username;
 
     @NotNull

@@ -4,8 +4,12 @@ import no.jenjon13.reeddit.data.entities.SiteUser;
 import no.jenjon13.reeddit.ejb.impl.SiteUserEJB;
 
 import javax.enterprise.inject.Model;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.util.List;
+
+import static javax.faces.application.FacesMessage.SEVERITY_ERROR;
 
 @Model
 public class SiteUserController {
@@ -22,8 +26,15 @@ public class SiteUserController {
         this.siteUser = siteUser;
     }
 
-    public void persist() {
+    public String persist() {
+        if (siteUserEJB.getAll().parallelStream().anyMatch(user -> user.getUsername().equals(siteUser.getUsername()))) {
+            final FacesMessage message = new FacesMessage(SEVERITY_ERROR, "Error", "Username is already taken");
+            FacesContext.getCurrentInstance().addMessage("userform:username", message);
+            return null;
+        }
+
         siteUserEJB.create(siteUser);
+        return "/user/index.xhtml?faces-redirect=true";
     }
 
     public List<SiteUser> getAll() {

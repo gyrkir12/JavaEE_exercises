@@ -7,9 +7,9 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../template.xhtml">
     <ui:define name="content">
-        <h:form>
+        <h:form id="userform">
             <h:panelGrid columns="3" cellpadding="5">
-                <p:outputLabel for="username" value="Name"/>
+                <p:outputLabel for="username" value="Username"/>
                 <p:inputText id="username" value="#{siteUserController.siteUser.username}" required="true"/>
                 <p:message for="username"/>
 
