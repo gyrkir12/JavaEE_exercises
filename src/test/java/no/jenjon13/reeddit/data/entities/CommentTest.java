@@ -8,8 +8,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
 import java.util.Set;
 
 public class CommentTest {
@@ -40,15 +38,5 @@ public class CommentTest {
 
         final Set<ConstraintViolation<Comment>> violations = validator.validate(testComment);
         Assert.assertEquals(2, violations.size());
-    }
-
-    @Test
-    public void testCommentTimestampCannotBeSetInFuture() throws Exception {
-        final Calendar calendar = GregorianCalendar.getInstance();
-        calendar.set(3000, Calendar.MARCH, 1);
-        testComment.setTimestamp(calendar.getTime());
-
-        final Set<ConstraintViolation<Comment>> violations = validator.validate(testComment);
-        Assert.assertEquals(1, violations.size());
     }
 }
