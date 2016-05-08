@@ -1,4 +1,4 @@
-package no.jenjon13.reeddit.data.entities.embeddables;
+package no.jenjon13.reeddit.data.embeddables;
 
 import no.jenjon13.reeddit.data.entities.SiteUser;
 

@@ -4,7 +4,7 @@ import no.jenjon13.reeddit.data.entities.Post;
 import no.jenjon13.reeddit.data.entities.SiteUser;
 import no.jenjon13.reeddit.data.entities.ValidTestPostFactory;
 import no.jenjon13.reeddit.data.entities.ValidTestUserFactory;
-import no.jenjon13.reeddit.data.entities.embeddables.Score;
+import no.jenjon13.reeddit.data.embeddables.Score;
 import no.jenjon13.reeddit.ejb.abstracts.EntityEJBIT;
 import no.jenjon13.reeddit.ejb.util.VoteCheck;
 import org.junit.After;

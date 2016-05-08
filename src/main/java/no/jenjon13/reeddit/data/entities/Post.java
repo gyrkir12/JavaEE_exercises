@@ -1,6 +1,6 @@
 package no.jenjon13.reeddit.data.entities;
 
-import no.jenjon13.reeddit.data.entities.embeddables.Score;
+import no.jenjon13.reeddit.data.embeddables.Score;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
