@@ -11,10 +11,16 @@ public class SiteUserEJB extends EntityEJB<SiteUser> {
     public SiteUserEJB() {
         super(SiteUser.class);
     }
-    
+
     public SiteUser getByName(String name) {
-        final Query query = entityManager.createQuery("SELECT SiteUser FROM SiteUser WHERE username LIKE :name");
-        final Query parametrizedQuery = query.setParameter("name", name);
-        return (SiteUser) parametrizedQuery.getSingleResult();
+        try {
+            String qlString = "SELECT SiteUser FROM SiteUser WHERE username LIKE :name";
+            final Query query = entityManager.createQuery(qlString);
+            final Query parametrizedQuery = query.setParameter("name", name);
+            return (SiteUser) parametrizedQuery.getSingleResult();
+        } catch (Exception ignored) {
+        }
+
+        return null;
     }
 }

@@ -27,7 +27,8 @@ public class SiteUserController {
     }
 
     public String persist() {
-        if (siteUserEJB.getByName(siteUser.getUsername()) != null) {
+        final String username = siteUser.getUsername();
+        if (siteUserEJB.getByName(username) != null) {
             final FacesMessage message = new FacesMessage(SEVERITY_ERROR, "Error", "Username is already taken");
             FacesContext.getCurrentInstance().addMessage("userform:username", message);
             return null;
