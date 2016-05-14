@@ -3,9 +3,11 @@ package no.jenjon13.reeddit.data.entities;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Date;
 
 @Entity
+@XmlRootElement
 public class SiteUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
