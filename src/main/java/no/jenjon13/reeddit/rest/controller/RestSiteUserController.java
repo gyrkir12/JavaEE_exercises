@@ -8,7 +8,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
-
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
@@ -19,6 +18,8 @@ import static javax.ws.rs.core.MediaType.APPLICATION_XML;
 @Consumes({APPLICATION_JSON, APPLICATION_XML})
 @Path("/user")
 public class RestSiteUserController {
+    private static final String SITEUSER_ID_PATH = "siteUserId";
+
     @Inject
     private SiteUserEJB siteUserEJB;
 
@@ -30,16 +31,19 @@ public class RestSiteUserController {
     }
 
     @GET
-    @Path("/{siteUserId}")
-    public Response getSiteUser(@PathParam("siteUserId") long id) {
+    @Path("{" + SITEUSER_ID_PATH + "}")
+    public Response getSiteUser(@PathParam(SITEUSER_ID_PATH) long id) {
         SiteUser siteUser = siteUserEJB.getById(id);
         if (siteUser == null) {
             return Response.noContent().build();
         }
 
-        final List<SiteUser> siteUsers = siteUserEJB.getAll();
-        final SiteUserXMLWrapper userArray = new SiteUserXMLWrapper(siteUsers);
-        return Response.ok(userArray).build();
+        return Response.ok(siteUser).build();
     }
 
+    @POST
+    public Response save(SiteUser siteUser) {
+        SiteUser user = siteUserEJB.create(siteUser);
+        return Response.ok(user).build();
+    }
 }
